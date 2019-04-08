@@ -1,21 +1,20 @@
-'use strict';
+"use strict";
 
-const {HashMap} = require('./hashmap');
-
+const { HashMap } = require("./hashmap");
 
 function main() {
   const lotr = new HashMap();
-  lotr.set('hobbit','bilbo');
-  lotr.set('hobbit', 'frodo');
-  lotr.set('wizard', 'gandalf');
-  lotr.set('human', 'aragon');
-  lotr.set('elf', 'legolas');
-  lotr.set('maiar', 'the necromancer');
-  lotr.set('maiar', 'sauron');
-  lotr.set('ringbearer', 'gollum');
-  lotr.set('ladyoflight', 'galadriel');
-  lotr.set('halfelven', 'arwen');
-  lotr.set('ent', 'treebeard');
+  lotr.set("hobbit", "bilbo");
+  lotr.set("hobbit", "frodo");
+  lotr.set("wizard", "gandalf");
+  lotr.set("human", "aragon");
+  lotr.set("elf", "legolas");
+  lotr.set("maiar", "the necromancer");
+  lotr.set("maiar", "sauron");
+  lotr.set("ringbearer", "gollum");
+  lotr.set("ladyoflight", "galadriel");
+  lotr.set("halfelven", "arwen");
+  lotr.set("ent", "treebeard");
   //console.log(lotr);
   // console.log(lotr.get('hobbit'));
   // console.log(lotr.get('maiar'));
@@ -23,15 +22,13 @@ function main() {
   //this happens because subsequent setting a value to a prexisting key will overwrite the previous value
 
   //our capacity is 24 because we reached the max capacity and resized based on capacity and resize ratio (8 * 3)
-
 }
 
+// main();
 
-main();
-
-const WhatDoesThisDo = function () {
-  let str1 = 'Hello World.';
-  let str2 = 'Hello World.';
+const WhatDoesThisDo = function() {
+  let str1 = "Hello World.";
+  let str2 = "Hello World.";
   let map1 = new HashMap();
   map1.set(str1, 10);
   map1.set(str2, 20);
@@ -46,3 +43,60 @@ const WhatDoesThisDo = function () {
 };
 
 //^ will log out 20 first and then 10. because you are still calling map1.get('Hello World.') which will be overwritten because HashMap is a pure fucntion
+
+const removeDupes = function(string) {
+  let noDupes = "";
+  let hm = new HashMap();
+  for (let i = 0; i < string.length; i++) {
+    try {
+      hm.get(string.charAt(i));
+    } catch {
+      hm.set(string.charAt(i));
+      noDupes += string.charAt(i);
+    }
+  }
+  return noDupes;
+};
+
+// console.log(removeDupes("google"));
+
+const palindromeCheck = function(string) {
+  let hm = new HashMap();
+  let dupeCount = 0;
+  for (let i = 0; i < string.length; i++) {
+    try {
+      hm.get(string.charAt(i));
+      dupeCount++;
+    } catch {
+      hm.set(string.charAt(i), "");
+    }
+  }
+  if (dupeCount === Math.floor(string.length / 2)) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+// console.log(palindromeCheck("acecarr"));
+// console.log(palindromeCheck("north"));
+const sort = function(word) {
+  return word
+    .split("")
+    .sort()
+    .join("");
+};
+
+const anagramGrouping = function(stringArr) {
+  let firstHash = new Map();
+  for (let i = 0; i < stringArr.length; i++) {
+    let key = sort(stringArr[i]);
+    let group = firstHash.get(key) || [];
+    firstHash.set(key, [...group, stringArr[i]]);
+  }
+  return Array.from(firstHash.values());
+};
+
+console.log(
+  anagramGrouping(["east", "cars", "acre", "arcs", "teas", "eats", "race"])
+);
