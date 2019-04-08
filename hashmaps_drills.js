@@ -1,21 +1,14 @@
 "use strict";
 
-const { HashMap } = require("./hashmap");
+const { HashMapChain } = require("./hashmapchain");
 
 function main() {
-  const lotr = new HashMap();
-  lotr.set("hobbit", "bilbo");
-  lotr.set("hobbit", "frodo");
-  lotr.set("wizard", "gandalf");
-  lotr.set("human", "aragon");
-  lotr.set("elf", "legolas");
+  const lotr = new HashMapChain();
   lotr.set("maiar", "the necromancer");
-  lotr.set("maiar", "sauron");
-  lotr.set("ringbearer", "gollum");
-  lotr.set("ladyoflight", "galadriel");
-  lotr.set("halfelven", "arwen");
-  lotr.set("ent", "treebeard");
-  //console.log(lotr);
+  console.log(lotr._hashTable);
+  lotr.delete('maiar');
+  console.log(lotr._hashTable);
+
   // console.log(lotr.get('hobbit'));
   // console.log(lotr.get('maiar'));
   //logging out maiar prints sauron, and hobbit prints frodo
@@ -24,7 +17,7 @@ function main() {
   //our capacity is 24 because we reached the max capacity and resized based on capacity and resize ratio (8 * 3)
 }
 
-// main();
+main();
 
 const WhatDoesThisDo = function() {
   let str1 = "Hello World.";
@@ -38,8 +31,8 @@ const WhatDoesThisDo = function() {
   map2.set(str3, 20);
   map2.set(str4, 10);
 
-  console.log(map1.get(str1));
-  console.log(map2.get(str3));
+  // console.log(map1.get(str1));
+  // console.log(map2.get(str3));
 };
 
 //^ will log out 20 first and then 10. because you are still calling map1.get('Hello World.') which will be overwritten because HashMap is a pure fucntion
@@ -97,6 +90,6 @@ const anagramGrouping = function(stringArr) {
   return Array.from(firstHash.values());
 };
 
-console.log(
-  anagramGrouping(["east", "cars", "acre", "arcs", "teas", "eats", "race"])
-);
+// console.log(
+//   anagramGrouping(["east", "cars", "acre", "arcs", "teas", "eats", "race"])
+// );
